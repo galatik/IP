@@ -19,13 +19,23 @@
     else
     {
         @(Html.DevExtreme().DropDownButton()
-            .Icon("user")
-            .Items(i =>
+            .DisplayExpr("Text")
+            .DataSource(new[]
             {
-                i.Add().Icon("home").Text("Войти").OnClick("() => $('#login-popup').dxPopup('instance').show()");
-                i.Add().Icon("user").Text("Зарегистрироваться").OnClick("() => $('#register-popup').dxPopup('instance').show()");
+                new DropDownItemViewModel
+                {
+                    Text = "Войти", 
+                    icon = "home"
+                },
+                new DropDownItemViewModel
+                {
+                    Text = "Зарегистрироваться", 
+                    icon = "user"
+                }
             })
-            .OnItemClick("eventHandlers.onLoginButtonClicked"))
+            .Icon("user")
+            .OnItemClick("eventHandlers.onLoginButtonClicked")
+            .DropDownOptions(options => options.Width(180)))
     }
 </ul>
 @(Html.DevExtreme().Popup()

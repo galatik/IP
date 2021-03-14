@@ -7,8 +7,13 @@
         onLoginButtonClicked: onLoginButtonClicked
     };
     
-    function onLoginButtonClicked(){
-        
+    function onLoginButtonClicked(e){
+        if (e.itemData.Text === "Войти"){
+            $('#login-popup').dxPopup('instance').show()
+        }
+        if (e.itemData.Text === "Зарегистрироваться"){
+            $('#register-popup').dxPopup('instance').show()
+        }
     }
 })();
 
