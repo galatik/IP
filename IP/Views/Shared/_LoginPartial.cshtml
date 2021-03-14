@@ -34,6 +34,10 @@
     .ShowTitle(true)
     .Title("Войти")
     .Visible(false)
+    
+    .Content(@<text>
+                 @await Html.PartialAsync("/Views/Account/_Login.cshtml")
+              </text>)
     .DragEnabled(false)
     .CloseOnOutsideClick(true))
 @(Html.DevExtreme().Popup()
@@ -42,6 +46,9 @@
     .ShowTitle(true)
     .Title("Зарегистрироваться")
     .Visible(false)
+    .Content(@<text>
+                 @await Html.PartialAsync("/Views/Account/_Register.cshtml")
+              </text>)
     .DragEnabled(false)
     .CloseOnOutsideClick(true)
     )
