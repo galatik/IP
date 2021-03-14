@@ -6,12 +6,12 @@ namespace IP.Controllers
     {
         public IActionResult Register()
         {
-            return View("Register");
+            return View("_Register");
         }
 
         public IActionResult Login()
         {
-            return View("Login");
+            return View("_Login");
         }
     }
 }

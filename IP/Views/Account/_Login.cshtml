@@ -1,0 +1,20 @@
+@using DevExtreme.AspNet.Mvc
+@using (Html.BeginForm())
+{
+    @(Html.DevExtreme().Form<UserViewModel>()
+        .ShowValidationSummary(true)
+        .Items(items =>
+        {
+            items.AddGroup()
+                .Items(groupItems =>
+                {
+                    groupItems.AddSimpleFor(model => model.Name);
+                    groupItems.AddSimpleFor(model => model.Password).Editor(editor => editor.TextBox().Mode(TextBoxMode.Password));
+                });
+            items.AddButton()
+                .HorizontalAlignment(HorizontalAlignment.Left)
+                .ButtonOptions(button => button.Text("Войти")
+                    .Type(ButtonType.Success)
+                    .UseSubmitBehavior(true));
+        }));
+}
