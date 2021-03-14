@@ -6,30 +6,42 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-    }
-    else
-    {
         @(Html.DevExtreme().DropDownButton()
             .Icon("menu")
             .Items(i =>
             {
-                i.Add().Icon("home").Text("Войти").OnClick($"() => window.location.href = '{Url.Action("Register", "Account")}'");
-                i.Add().Icon("user").Text("Зарегистрироваться").OnClick($"() => window.location.href = '{Url.Action("Register", "Account")}'");
+                i.Add().Text("Мои заказы");
+                i.Add().Text("Баланс");
+                i.Add().Text("Профиль");
+                i.Add().Text("Выйти");
+            }))
+    }
+    else
+    {
+        @(Html.DevExtreme().DropDownButton()
+            .Icon("user")
+            .Items(i =>
+            {
+                i.Add().Icon("home").Text("Войти").OnClick("() => $('#login-popup').dxPopup('instance').show()");
+                i.Add().Icon("user").Text("Зарегистрироваться").OnClick("() => $('#register-popup').dxPopup('instance').show()");
             })
             .OnItemClick("eventHandlers.onLoginButtonClicked"))
-@*         <li class="nav-item"> *@
-@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
-@*         </li> *@
-@*         <li class="nav-item"> *@
-@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
-@*         </li> *@
     }
 </ul>
+@(Html.DevExtreme().Popup()
+    .Container("main")
+    .ID("login-popup")
+    .ShowTitle(true)
+    .Title("Войти")
+    .Visible(false)
+    .DragEnabled(false)
+    .CloseOnOutsideClick(true))
+@(Html.DevExtreme().Popup()
+    .Container("main")
+    .ID("register-popup")
+    .ShowTitle(true)
+    .Title("Зарегистрироваться")
+    .Visible(false)
+    .DragEnabled(false)
+    .CloseOnOutsideClick(true)
+    )
