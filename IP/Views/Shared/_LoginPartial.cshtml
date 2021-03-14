@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DevExtreme.AspNet.Mvc
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        @(Html.DevExtreme().DropDownButton()
+            .Icon("menu")
+            .Items(i =>
+            {
+                i.Add().Icon("home").Text("Войти").OnClick($"() => window.location.href = '{Url.Action("Register", "Account")}'");
+                i.Add().Icon("user").Text("Зарегистрироваться").OnClick($"() => window.location.href = '{Url.Action("Register", "Account")}'");
+            })
+            .OnItemClick("eventHandlers.onLoginButtonClicked"))
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
+@*         </li> *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
+@*         </li> *@
+    }
+</ul>
